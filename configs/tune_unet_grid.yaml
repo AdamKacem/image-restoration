@@ -1,0 +1,34 @@
+# configs/tune_unet_grid.yaml
+# Grid search config for U-Net.
+# All parameters must use 'choice' for grid to enumerate them.
+# Run with: python run.py tune --config configs/tune_unet_grid.yaml --strategy grid --trials 20
+
+base:
+  dataset:    data/synthetic
+  epochs:     3
+  img_size:   128
+  patience:   5
+
+space:
+  lr:
+    type: choice
+    values: [0.001, 0.0005, 0.0001]
+
+  batch_size:
+    type: choice
+    values: [16, 32]
+
+  optimizer:
+    type: choice
+    values: [adam, adamw]
+
+  base_filters:
+    type: choice
+    values: [16, 32]
+
+  loss:
+    type: choice
+    values: [weighted_mse_ssim, mse]
+
+  # Total grid size: 3 × 2 × 2 × 2 × 2 = 48 combinations.
+  # Use --trials 20 to sub-sample 20 of them.

@@ -1,0 +1,56 @@
+# configs/tune_unet.yaml
+# Hyperparameter search config for U-Net.
+# Run with: python run.py tune --config configs/tune_unet.yaml
+
+# ── Base training settings (fixed for all trials) ────────────────────────────
+base:
+  dataset:    data/synthetic
+  epochs:     3           # keep small for fast search; use more for final run
+  img_size:   128
+  patience:   5
+
+# ── Parameter space ──────────────────────────────────────────────────────────
+# Each entry defines one hyperparameter to search over.
+#
+# Types available:
+#   choice      : pick from a list of values  (works with random + grid)
+#   log_uniform : sample float from log-scale  (random only; needs low + high)
+#   uniform     : sample float linearly        (random only; needs low + high)
+#   int         : sample integer               (random only; needs low + high)
+#
+# For grid search, all parameters must use 'choice' with an explicit 'values' list.
+
+space:
+  lr:
+    type: log_uniform
+    low:  0.0001
+    high: 0.01
+
+  batch_size:
+    type: choice
+    values: [8, 16, 32]
+
+  optimizer:
+    type: choice
+    values: [adam, adamw]
+
+  dropout:
+    type: uniform
+    low:  0.1
+    high: 0.4
+
+  base_filters:
+    type: choice
+    values: [16, 32, 64]
+
+  loss:
+    type: choice
+    values: [weighted_mse_ssim, mse]
+
+  ink_weight:
+    type: choice
+    values: [2.0, 4.0, 6.0, 8.0]
+
+  mse_alpha:
+    type: choice
+    values: [0.3, 0.5, 0.7]

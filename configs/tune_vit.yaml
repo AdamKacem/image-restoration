@@ -1,0 +1,48 @@
+# configs/tune_vit.yaml
+# Hyperparameter search config for Vision Transformer.
+# Run with: python run.py tune --config configs/tune_vit.yaml
+
+base:
+  dataset:    data/synthetic
+  epochs:     3
+  img_size:   128
+  patience:   5
+
+space:
+  lr:
+    type: log_uniform
+    low:  0.00005
+    high: 0.001
+
+  batch_size:
+    type: choice
+    values: [8, 16]
+
+  optimizer:
+    type: choice
+    values: [adam]
+
+  embed_dim:
+    type: choice
+    values: [128, 256]
+
+  num_layers:
+    type: choice
+    values: [2, 4, 6]
+
+  num_heads:
+    type: choice
+    values: [4, 8]
+
+  mlp_dim:
+    type: choice
+    values: [256, 512]
+
+  dropout:
+    type: uniform
+    low:  0.05
+    high: 0.25
+
+  loss:
+    type: choice
+    values: [weighted_mse_ssim, mse]

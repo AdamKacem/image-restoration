@@ -1,0 +1,11 @@
+# ── Deep learning ─────────────────────────────────────────────────────────────
+tensorflow>=2.12          # framework principal (CNN, UNet, ViT, GAN, MWCNN)
+
+# ── Traitement d'image & données ──────────────────────────────────────────────
+numpy>=1.23               # manipulation des tableaux
+opencv-python>=4.7        # génération de données synthétiques (stamps, blur…)
+matplotlib>=3.7           # visualisation (comparaisons, courbes de loss)
+
+# ── Configuration & utilitaires ───────────────────────────────────────────────
+pyyaml>=6.0               # lecture des configs YAML pour le tuning (tune_*.yaml)
+
